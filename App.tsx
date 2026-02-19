@@ -19,6 +19,7 @@ import ProductSelector from './components/ProductSelector';
 import PreviewSection from './components/PreviewSection';
 import CheckoutModal from './components/CheckoutModal';
 import Gallery from './components/Gallery';
+import HowItWorks from './components/HowItWorks';
 import { AppStep, PetPortraitConfig } from './types';
 import { ART_STYLES, PRODUCTS, SIZES } from './constants';
 
@@ -35,6 +36,14 @@ const App: React.FC = () => {
   });
   const [showCheckout, setShowCheckout] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [showHowItWorks, setShowHowItWorks] = useState(false);
+
+  const goHome = () => {
+    setStep('upload');
+    setShowGallery(false);
+    setShowHowItWorks(false);
+    setShowCheckout(false);
+  };
 
   const handleImageUpload = (base64: string) => {
     setConfig(prev => ({ ...prev, originalImage: base64 }));
@@ -67,7 +76,11 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
-      <Header onGalleryClick={() => setShowGallery(true)} />
+      <Header
+        onHomeClick={goHome}
+        onHowItWorksClick={() => { setShowHowItWorks(true); setShowGallery(false); }}
+        onGalleryClick={() => { setShowGallery(true); setShowHowItWorks(false); }}
+      />
       
       <main className="flex-grow container mx-auto px-4 py-8 relative z-10">
         {/* Progress Stepper (Hidden on Landing) */}
@@ -191,6 +204,7 @@ const App: React.FC = () => {
 
       <Footer />
       {showGallery && <Gallery onClose={() => setShowGallery(false)} />}
+      {showHowItWorks && <HowItWorks onClose={() => setShowHowItWorks(false)} />}
       {showCheckout && <CheckoutModal config={config} onClose={() => setShowCheckout(false)} />}
     </div>
   );

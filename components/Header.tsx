@@ -3,14 +3,16 @@ import React from 'react';
 import { Dog } from 'lucide-react';
 
 interface HeaderProps {
+  onHomeClick?: () => void;
+  onHowItWorksClick?: () => void;
   onGalleryClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onGalleryClick }) => {
+const Header: React.FC<HeaderProps> = ({ onHomeClick, onHowItWorksClick, onGalleryClick }) => {
   return (
     <header className="bg-white border-b border-slate-100 py-4 sticky top-0 z-50">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.reload()}>
+        <div className="flex items-center gap-2 cursor-pointer" onClick={onHomeClick}>
           <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white shadow-md">
             <Dog size={24} strokeWidth={2.5} />
           </div>
@@ -21,7 +23,18 @@ const Header: React.FC<HeaderProps> = ({ onGalleryClick }) => {
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className="text-sm font-semibold text-slate-600 hover:text-orange-500 transition-colors">How it works</a>
+          <button
+            onClick={onHomeClick}
+            className="text-sm font-semibold text-slate-600 hover:text-orange-500 transition-colors"
+          >
+            Home
+          </button>
+          <button
+            onClick={onHowItWorksClick}
+            className="text-sm font-semibold text-slate-600 hover:text-orange-500 transition-colors"
+          >
+            How it works
+          </button>
           <button
             onClick={onGalleryClick}
             className="text-sm font-semibold text-slate-600 hover:text-orange-500 transition-colors"
