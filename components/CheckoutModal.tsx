@@ -40,7 +40,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ config, onClose }) => {
             <div className="flex flex-col justify-center">
               <h4 className="font-bold text-slate-900">Pet Portrait: {config.petName || 'Unnamed Pet'}</h4>
               <p className="text-xs text-slate-500">{config.style?.name} Style</p>
-              <p className="text-xs text-slate-500">{config.product?.name} • {config.size?.label}</p>
+              <p className="text-xs text-slate-500">{config.product?.name}{config.product?.id === 'framed-canvas' && config.frameType ? ` (${config.frameType} frame)` : ''} • {config.size?.label}</p>
               <p className="text-lg font-bold text-orange-600 mt-1">${price.toFixed(2)}</p>
             </div>
           </div>

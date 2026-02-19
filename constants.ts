@@ -48,6 +48,13 @@ export const PRODUCTS: ProductType[] = [
     image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=400'
   },
   {
+    id: 'framed-canvas',
+    name: 'Framed Canvas',
+    description: 'Gallery canvas in a handcrafted decorative frame.',
+    basePrice: 69.99,
+    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=400'
+  },
+  {
     id: 'metal',
     name: 'Modern Metal',
     description: 'Sleek Dibond aluminum with a high-gloss finish.',

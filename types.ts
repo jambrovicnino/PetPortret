@@ -1,6 +1,8 @@
 
 export type AppStep = 'upload' | 'style' | 'options' | 'preview' | 'checkout';
 
+export type FrameType = 'classic' | 'modern' | 'gold' | 'rustic';
+
 export interface ArtStyle {
   id: string;
   name: string;
@@ -30,4 +32,5 @@ export interface PetPortraitConfig {
   originalImage: string | null;
   generatedImages: string[];
   selectedVariationIndex: number;
+  frameType?: FrameType;
 }

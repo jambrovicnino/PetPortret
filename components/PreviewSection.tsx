@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Sparkles, RefreshCw, AlertCircle, Camera, Check } from 'lucide-react';
 import { PetPortraitConfig } from '../types';
+import FramedArt from './FramedArt';
 import { generatePortrait } from '../services/geminiService';
 
 interface PreviewSectionProps {
@@ -81,26 +82,39 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({ config, updateConfig })
               </div>
             ) : (
               <>
-                <img 
-                  src={currentPreview} 
-                  alt="Pet Portrait Preview" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                />
+                {config.product?.id === 'framed-canvas' && config.frameType ? (
+                  <div className="w-full h-full flex items-center justify-center p-6 bg-slate-100">
+                    <FramedArt
+                      src={currentPreview}
+                      alt="Pet Portrait Preview"
+                      frameType={config.frameType}
+                      className="max-w-full max-h-full"
+                    />
+                  </div>
+                ) : (
+                  <img
+                    src={currentPreview}
+                    alt="Pet Portrait Preview"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                )}
                 {loading && (
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-slate-100">
                     <div className="w-3 h-3 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Generating Variations...</span>
                   </div>
                 )}
-                <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-                   <div className="bg-white/90 backdrop-blur p-4 rounded-2xl shadow-lg border border-white/50 max-w-[70%]">
-                      <p className="text-[10px] uppercase font-black text-orange-500 mb-1 tracking-widest">Style: {config.style?.name}</p>
-                      <h4 className="font-bold text-slate-900 truncate">{config.petName || 'Your Pet'}</h4>
-                   </div>
-                   <div className="bg-slate-900/80 backdrop-blur p-3 rounded-full text-white shadow-xl">
-                      <Sparkles size={20} />
-                   </div>
-                </div>
+                {!(config.product?.id === 'framed-canvas' && config.frameType) && (
+                  <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+                     <div className="bg-white/90 backdrop-blur p-4 rounded-2xl shadow-lg border border-white/50 max-w-[70%]">
+                        <p className="text-[10px] uppercase font-black text-orange-500 mb-1 tracking-widest">Style: {config.style?.name}</p>
+                        <h4 className="font-bold text-slate-900 truncate">{config.petName || 'Your Pet'}</h4>
+                     </div>
+                     <div className="bg-slate-900/80 backdrop-blur p-3 rounded-full text-white shadow-xl">
+                        <Sparkles size={20} />
+                     </div>
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -163,6 +177,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({ config, updateConfig })
                 <span className="text-slate-500">Material</span>
                 <span className="font-bold text-slate-900">{config.product?.name}</span>
               </div>
+              {config.product?.id === 'framed-canvas' && config.frameType && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Frame</span>
+                  <span className="font-bold text-slate-900 capitalize">{config.frameType} Frame</span>
+                </div>
+              )}
               <div className="flex justify-between text-sm">
                 <span className="text-slate-500">Size</span>
                 <span className="font-bold text-slate-900">{config.size?.label}</span>

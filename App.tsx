@@ -120,19 +120,34 @@ const App: React.FC = () => {
                   <h3 className="text-2xl font-bold text-slate-800 mb-2">See What's Possible</h3>
                   <p className="text-slate-500">Real examples of AI-generated pet portraits in different art styles</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                   {/* Andy Warhol Style Example */}
                   <div className="flex flex-col items-center gap-4 animate-slideInLeft">
                     <FramedArt
                       src="/examples/warhol-cat.jpg"
                       alt="Cat portrait in Andy Warhol Pop Art style"
                       frameType="modern"
-                      className="w-full max-w-sm"
+                      className="w-full max-w-xs"
                     />
                     <div className="text-center">
                       <span className="inline-block bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Pop Art</span>
                       <h4 className="text-lg font-bold text-slate-800">Andy Warhol Style</h4>
-                      <p className="text-sm text-slate-500 mt-1">Bold colors, halftone patterns & iconic pop art composition</p>
+                      <p className="text-sm text-slate-500 mt-1">Bold colors & iconic pop art composition</p>
+                    </div>
+                  </div>
+
+                  {/* Original Photo (Before) */}
+                  <div className="flex flex-col items-center gap-4 animate-fadeIn">
+                    <FramedArt
+                      src="/examples/original-cat.jpg"
+                      alt="Original cat photograph"
+                      frameType="rustic"
+                      className="w-full max-w-xs"
+                    />
+                    <div className="text-center">
+                      <span className="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Original</span>
+                      <h4 className="text-lg font-bold text-slate-800">The Photo</h4>
+                      <p className="text-sm text-slate-500 mt-1">Your pet photo is the starting point</p>
                     </div>
                   </div>
 
@@ -142,12 +157,12 @@ const App: React.FC = () => {
                       src="/examples/vangogh-cat.jpg"
                       alt="Cat portrait in Vincent van Gogh oil painting style"
                       frameType="gold"
-                      className="w-full max-w-sm"
+                      className="w-full max-w-xs"
                     />
                     <div className="text-center">
                       <span className="inline-block bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Oil Painting</span>
                       <h4 className="text-lg font-bold text-slate-800">Vincent van Gogh Style</h4>
-                      <p className="text-sm text-slate-500 mt-1">Swirling brushstrokes, impasto textures & rich color palette</p>
+                      <p className="text-sm text-slate-500 mt-1">Swirling brushstrokes & rich color palette</p>
                     </div>
                   </div>
                 </div>
