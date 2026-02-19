@@ -1,0 +1,7 @@
+{
+  "name": "PetPortrait AI",
+  "description": "Transform your favorite pet photos into gallery-quality masterpieces using AI style transfer. Choose from various art styles like Van Gogh, Pop Art, and Watercolor, and order custom prints on canvas, metal, or posters.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
