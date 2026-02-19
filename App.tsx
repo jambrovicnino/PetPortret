@@ -18,7 +18,7 @@ import StyleSelector from './components/StyleSelector';
 import ProductSelector from './components/ProductSelector';
 import PreviewSection from './components/PreviewSection';
 import CheckoutModal from './components/CheckoutModal';
-import FramedArt from './components/FramedArt';
+import Gallery from './components/Gallery';
 import { AppStep, PetPortraitConfig } from './types';
 import { ART_STYLES, PRODUCTS, SIZES } from './constants';
 
@@ -34,6 +34,7 @@ const App: React.FC = () => {
     selectedVariationIndex: 0,
   });
   const [showCheckout, setShowCheckout] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
 
   const handleImageUpload = (base64: string) => {
     setConfig(prev => ({ ...prev, originalImage: base64 }));
@@ -66,7 +67,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
-      <Header />
+      <Header onGalleryClick={() => setShowGallery(true)} />
       
       <main className="flex-grow container mx-auto px-4 py-8 relative z-10">
         {/* Progress Stepper (Hidden on Landing) */}
@@ -112,60 +113,6 @@ const App: React.FC = () => {
               <div className="mt-8 flex items-center justify-center gap-6 text-slate-400 font-medium">
                 <div className="flex items-center gap-2"><Info size={16} /> JPG or PNG</div>
                 <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-green-500" /> Free AI Preview</div>
-              </div>
-
-              {/* Example Art Styles Gallery */}
-              <div className="mt-16 animate-fadeIn">
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-slate-800 mb-2">See What's Possible</h3>
-                  <p className="text-slate-500">Real examples of AI-generated pet portraits in different art styles</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                  {/* Andy Warhol Style Example */}
-                  <div className="flex flex-col items-center gap-4 animate-slideInLeft">
-                    <FramedArt
-                      src="/examples/warhol-cat.jpg"
-                      alt="Cat portrait in Andy Warhol Pop Art style"
-                      frameType="modern"
-                      className="w-full max-w-xs"
-                    />
-                    <div className="text-center">
-                      <span className="inline-block bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Pop Art</span>
-                      <h4 className="text-lg font-bold text-slate-800">Andy Warhol Style</h4>
-                      <p className="text-sm text-slate-500 mt-1">Bold colors & iconic pop art composition</p>
-                    </div>
-                  </div>
-
-                  {/* Original Photo (Before) */}
-                  <div className="flex flex-col items-center gap-4 animate-fadeIn">
-                    <FramedArt
-                      src="/examples/original-cat.jpg"
-                      alt="Original cat photograph"
-                      frameType="rustic"
-                      className="w-full max-w-xs"
-                    />
-                    <div className="text-center">
-                      <span className="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Original</span>
-                      <h4 className="text-lg font-bold text-slate-800">The Photo</h4>
-                      <p className="text-sm text-slate-500 mt-1">Your pet photo is the starting point</p>
-                    </div>
-                  </div>
-
-                  {/* Van Gogh Style Example */}
-                  <div className="flex flex-col items-center gap-4 animate-slideInRight">
-                    <FramedArt
-                      src="/examples/vangogh-cat.jpg"
-                      alt="Cat portrait in Vincent van Gogh oil painting style"
-                      frameType="gold"
-                      className="w-full max-w-xs"
-                    />
-                    <div className="text-center">
-                      <span className="inline-block bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Oil Painting</span>
-                      <h4 className="text-lg font-bold text-slate-800">Vincent van Gogh Style</h4>
-                      <p className="text-sm text-slate-500 mt-1">Swirling brushstrokes & rich color palette</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           )}
@@ -243,6 +190,7 @@ const App: React.FC = () => {
       </main>
 
       <Footer />
+      {showGallery && <Gallery onClose={() => setShowGallery(false)} />}
       {showCheckout && <CheckoutModal config={config} onClose={() => setShowCheckout(false)} />}
     </div>
   );
