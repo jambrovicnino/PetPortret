@@ -1,9 +1,12 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X, ArrowLeft } from 'lucide-react';
+
+export type GallerySection = 'styles' | 'metal-prints' | 'posters' | null;
 
 interface GalleryProps {
   onClose: () => void;
+  scrollToSection?: GallerySection;
 }
 
 /* Reusable gallery card */
@@ -40,7 +43,25 @@ const SectionHeading: React.FC<{ title: string; subtitle: string }> = ({ title, 
   </div>
 );
 
-const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
+const Gallery: React.FC<GalleryProps> = ({ onClose, scrollToSection }) => {
+  const stylesRef = useRef<HTMLDivElement>(null);
+  const metalRef = useRef<HTMLDivElement>(null);
+  const postersRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!scrollToSection) return;
+    const timer = setTimeout(() => {
+      const refMap: Record<string, React.RefObject<HTMLDivElement | null>> = {
+        'styles': stylesRef,
+        'metal-prints': metalRef,
+        'posters': postersRef,
+      };
+      const target = refMap[scrollToSection];
+      target?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [scrollToSection]);
+
   return (
     <div className="fixed inset-0 z-[90] bg-slate-50 overflow-y-auto">
       {/* Header Bar */}
@@ -67,6 +88,7 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
         {/* ═══════════════════════════════════════════
             SECTION 1: STYLES
             ═══════════════════════════════════════════ */}
+        <div ref={stylesRef} id="gallery-styles" className="scroll-mt-20" />
         <SectionHeading title="Styles" subtitle="See how your pet transforms across different artistic styles" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
@@ -139,6 +161,7 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
         {/* ═══════════════════════════════════════════
             SECTION 2: METAL PRINTS
             ═══════════════════════════════════════════ */}
+        <div ref={metalRef} id="gallery-metal-prints" className="scroll-mt-20" />
         <SectionHeading title="Metal Prints" subtitle="Sleek Dibond aluminum with a high-gloss finish for a modern gallery look" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
@@ -198,6 +221,7 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
         {/* ═══════════════════════════════════════════
             SECTION 3: POSTERS
             ═══════════════════════════════════════════ */}
+        <div ref={postersRef} id="gallery-posters" className="scroll-mt-20" />
         <SectionHeading title="Posters" subtitle="Premium semi-gloss fine art paper, perfect for framing" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

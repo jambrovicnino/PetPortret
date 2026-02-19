@@ -2,7 +2,11 @@
 import React from 'react';
 import { Instagram, Twitter, Facebook, Heart } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onProductClick?: (section: 'styles' | 'metal-prints' | 'posters') => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onProductClick }) => {
   return (
     <footer className="bg-slate-900 text-slate-300 py-12">
       <div className="container mx-auto px-4">
@@ -22,9 +26,9 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-bold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Gallery Canvas</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Metal Prints</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Posters</a></li>
+              <li><button onClick={() => onProductClick?.('styles')} className="hover:text-white transition-colors text-left">Gallery Canvas</button></li>
+              <li><button onClick={() => onProductClick?.('metal-prints')} className="hover:text-white transition-colors text-left">Metal Prints</button></li>
+              <li><button onClick={() => onProductClick?.('posters')} className="hover:text-white transition-colors text-left">Posters</button></li>
               <li><a href="#" className="hover:text-white transition-colors">Gift Cards</a></li>
             </ul>
           </div>

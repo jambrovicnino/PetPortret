@@ -18,7 +18,7 @@ import StyleSelector from './components/StyleSelector';
 import ProductSelector from './components/ProductSelector';
 import PreviewSection from './components/PreviewSection';
 import CheckoutModal from './components/CheckoutModal';
-import Gallery from './components/Gallery';
+import Gallery, { GallerySection } from './components/Gallery';
 import HowItWorks from './components/HowItWorks';
 import { AppStep, PetPortraitConfig } from './types';
 import { ART_STYLES, PRODUCTS, SIZES } from './constants';
@@ -36,13 +36,21 @@ const App: React.FC = () => {
   });
   const [showCheckout, setShowCheckout] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [gallerySection, setGallerySection] = useState<GallerySection>(null);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
 
   const goHome = () => {
     setStep('upload');
     setShowGallery(false);
+    setGallerySection(null);
     setShowHowItWorks(false);
     setShowCheckout(false);
+  };
+
+  const openGalleryAt = (section: GallerySection) => {
+    setGallerySection(section);
+    setShowGallery(true);
+    setShowHowItWorks(false);
   };
 
   const handleImageUpload = (base64: string) => {
@@ -79,7 +87,7 @@ const App: React.FC = () => {
       <Header
         onHomeClick={goHome}
         onHowItWorksClick={() => { setShowHowItWorks(true); setShowGallery(false); }}
-        onGalleryClick={() => { setShowGallery(true); setShowHowItWorks(false); }}
+        onGalleryClick={() => { setGallerySection(null); setShowGallery(true); setShowHowItWorks(false); }}
       />
       
       <main className="flex-grow container mx-auto px-4 py-8 relative z-10">
@@ -202,8 +210,8 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <Footer />
-      {showGallery && <Gallery onClose={() => setShowGallery(false)} />}
+      <Footer onProductClick={(section) => openGalleryAt(section)} />
+      {showGallery && <Gallery onClose={() => { setShowGallery(false); setGallerySection(null); }} scrollToSection={gallerySection} />}
       {showHowItWorks && <HowItWorks onClose={() => setShowHowItWorks(false)} />}
       {showCheckout && <CheckoutModal config={config} onClose={() => setShowCheckout(false)} />}
     </div>
